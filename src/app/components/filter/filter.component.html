@@ -1,0 +1,23 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav mode="side" opened class="example-sidenav">
+    <h3 style="text-align: center">Filter</h3>
+
+    <app-genericfilter
+      [label]="label"
+      (selectedItems)="ItemSelected($event)"
+      [optionList]="optionList"
+    ></app-genericfilter
+    ><br />
+
+    <button class="btn btn-primary">Filter</button>
+  </mat-sidenav>
+  <button class="btn btn-primary mx-3" (click)="toggleUrl('products')">
+    Product
+  </button>
+  <button class="btn btn-primary mx-3" (click)="toggleUrl('user')">User</button>
+  <app-datatable
+    [dataSource]="dataSource"
+    [displayedColumns]="displayedColumns"
+  >
+  </app-datatable>
+</mat-sidenav-container>
