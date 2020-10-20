@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GenericfilterComponent } from './shared/genericfilter/genericfilter.component';
 import { FilterComponent } from './components/filter/filter.component';
-import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -15,12 +15,22 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatatableComponent } from './shared/datatable/datatable.component';
+import { UserfilterComponent } from './components/userfilter/userfilter.component';
+import { AppdetailsComponent } from './components/appdetails/appdetails.component';
 
 @NgModule({
-  declarations: [AppComponent, GenericfilterComponent, FilterComponent, DatatableComponent],
+  declarations: [
+    AppComponent,
+    GenericfilterComponent,
+    FilterComponent,
+    DatatableComponent,
+    UserfilterComponent,
+    AppdetailsComponent,
+  ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTableModule,

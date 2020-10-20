@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
   selector: 'app-filter',
@@ -8,7 +9,10 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./filter.component.css'],
 })
 export class FilterComponent implements OnInit {
-  constructor(private http: HttpClient) {}
+  constructor(private service: FilterService) {}
+  selectedValue = new FormGroup({
+    selectRating: new FormControl(''),
+  });
   path = { obj1: 'products', obj2: 'rating' };
   label = 'Select Rating';
   dataSource: any;
@@ -17,29 +21,21 @@ export class FilterComponent implements OnInit {
   data;
 
   ngOnInit(): void {
-    this.http
-      .get(`http://localhost:2000/${this.path.obj1} `)
-      .subscribe((res) => {
-        this.data = res;
-        this.dataSource = new MatTableDataSource(this.data);
-        // console.log('dataSource', this.dataSource.filteredData);
-        for (var column in this.dataSource.filteredData[0]) {
-          if (column != '_id' && column != 'id') {
-            this.displayedColumns.push(column);
-            // console.log('column name', column);
-          }
+    this.service.getData(this.path.obj1).subscribe((res) => {
+      this.data = res;
+      this.dataSource = new MatTableDataSource(this.data);
+      // console.log('dataSource', this.dataSource.filteredData);
+      for (var column in this.dataSource.filteredData[0]) {
+        if (column != '_id' && column != 'id') {
+          this.displayedColumns.push(column);
+          // console.log('column name', column);
         }
-      });
-    this.http
-      .get(`http://localhost:2000/${this.path.obj2}`)
-      .subscribe((category) => {
-        this.optionList = category;
-        console.log('rating list', this.optionList);
-      });
-  }
-  ItemSelected(e) {
-    console.log('Its working', e);
-    // this.dataSource.filteredData[index][column];
+      }
+    });
+    this.service.getCategory(this.path.obj2).subscribe((category) => {
+      this.optionList = category;
+      console.log('rating list', this.optionList);
+    });
   }
 
   toggleUrl(path) {
@@ -56,5 +52,20 @@ export class FilterComponent implements OnInit {
       this.label = 'Select Rating';
       this.ngOnInit();
     }
+  }
+
+  handleFilter() {
+    let filterValue = this.selectedValue.controls.selectRating.value;
+    this.service.filterData(filterValue).subscribe((res) => {
+      this.data = res;
+      this.dataSource = new MatTableDataSource(this.data);
+      // console.log('dataSource', this.dataSource.filteredData);
+      // for (var column in this.dataSource.filteredData[0]) {
+      //   if (column != '_id' && column != 'id') {
+      //     this.displayedColumns.push(column);
+      //     // console.log('column name', column);
+      //   }
+      // }
+    });
   }
 }
