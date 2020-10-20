@@ -1,0 +1,13 @@
+<mat-form-field appearance="fill">
+  <mat-label>{{ label }}</mat-label>
+
+  <mat-select
+    (selectionChange)="selectedItems.emit()"
+    (ngModelChange)="onChange($event)"
+    [(ngModel)]="fieldValue"
+  >
+    <mat-option *ngFor="let item of optionList" [value]="item">{{
+      item
+    }}</mat-option>
+  </mat-select>
+</mat-form-field>

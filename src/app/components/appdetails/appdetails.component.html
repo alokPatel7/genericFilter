@@ -1,0 +1,23 @@
+<div class="container mt-3">
+  <form (ngSubmit)="handleFilter()">
+    <app-genericfilter
+      [label]="'Select Category'"
+      [optionList]="categoryList"
+      [formControl]="category"
+    ></app-genericfilter>
+    &nbsp;
+    <app-genericfilter
+      [label]="'Select Rating'"
+      [optionList]="ratingList"
+      [formControl]="rating"
+    ></app-genericfilter>
+    &nbsp;
+    <button class="btn btn-primary">Filter</button>
+  </form>
+</div>
+<div class="container-fluid">
+  <app-datatable
+    [dataSource]="dataSource"
+    [displayedColumns]="displayedColumns"
+  ></app-datatable>
+</div>

@@ -1,0 +1,25 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav mode="side" opened class="example-sidenav">
+    <h3 style="text-align: center">Filter</h3>
+
+    <form [formGroup]="selectedValue" (ngSubmit)="handleFilter()">
+      <app-genericfilter
+        [label]="label"
+        [optionList]="optionList"
+        formControlName="selectRating"
+      ></app-genericfilter
+      ><br />
+
+      <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+  </mat-sidenav>
+  <button class="btn btn-primary mx-3" (click)="toggleUrl('products')">
+    Product
+  </button>
+  <button class="btn btn-primary mx-3" (click)="toggleUrl('user')">User</button>
+  <app-datatable
+    [dataSource]="dataSource"
+    [displayedColumns]="displayedColumns"
+  >
+  </app-datatable>
+</mat-sidenav-container>
